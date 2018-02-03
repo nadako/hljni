@@ -1,0 +1,6 @@
+-cp src
+-cp gen
+-D analyzer-optimize
+-hl nope
+--no-output
+--macro Gen.run("native")

@@ -1,0 +1,15 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+os:
+  - linux
+
+haxe:
+  - development
+
+install:
+
+script:
+  haxe gen.hxml
