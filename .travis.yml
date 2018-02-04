@@ -10,6 +10,12 @@ haxe:
   - development
 
 install:
+  - git clone https://github.com/HaxeFoundation/hashlink/
+  - cd hashlink
+  - cmake -G "Unix Makefiles" .
+  - cmake --build .
+  - cd ..
+
 
 script:
   - haxe gen.hxml
