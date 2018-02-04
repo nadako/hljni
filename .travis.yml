@@ -6,6 +6,18 @@ language: haxe
 os:
   - linux
 
+addons:
+  apt:
+    packages:
+    - libpng-dev
+    - libsdl2-dev
+    - libvorbis-dev
+    - libalut-dev
+    - libmbedtls-dev
+    - libturbojpeg0-dev
+    - libuv1-dev
+    - libopenal-dev
+
 haxe:
   - development
 
