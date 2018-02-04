@@ -12,7 +12,7 @@ haxe:
 install:
 
 script:
-  haxe gen.hxml
-  cd native
-  cmake -G "Unix Makefiles" .
-  cmake --build .
+  - haxe gen.hxml
+  - cd native
+  - cmake -G "Unix Makefiles" .
+  - cmake --build .
