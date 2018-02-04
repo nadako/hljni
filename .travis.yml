@@ -13,3 +13,6 @@ install:
 
 script:
   haxe gen.hxml
+  cd native
+  cmake -G "Unix Makefiles" .
+  cmake --build .
