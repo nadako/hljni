@@ -13,9 +13,8 @@ addons:
     - libsdl2-dev
     - libvorbis-dev
     - libalut-dev
-    - libmbedtls-dev
-    - libturbojpeg0-dev
-    - libuv1-dev
+    - libjpeg-turbo8-dev
+    - libuv-dev
     - libopenal-dev
 
 haxe:
