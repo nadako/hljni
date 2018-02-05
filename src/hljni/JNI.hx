@@ -29,7 +29,18 @@ abstract Jthrowable(Jobject) to Jobject {}
 abstract Jweak(Jobject) to Jobject {}
 
 // arguments
-typedef JNIArgs = hl.Abstract<"jvalue">; // pointer over jvalue
+abstract JNIArgs(JvaluePointer) {
+	public inline function new(count) this = JNIArgsHelper.argsAlloc(count);
+	public inline function setJboolean(pos:Int, value:Jboolean) JNIArgsHelper.argsSetJboolean(this, pos, value);
+	public inline function setJbyte(pos:Int, value:Jbyte) JNIArgsHelper.argsSetJbyte(this, pos, value);
+	public inline function setJchar(pos:Int, value:Jchar) JNIArgsHelper.argsSetJchar(this, pos, value);
+	public inline function setJshort(pos:Int, value:Jshort) JNIArgsHelper.argsSetJshort(this, pos, value);
+	public inline function setJint(pos:Int, value:Jint) JNIArgsHelper.argsSetJint(this, pos, value);
+	public inline function setJlong(pos:Int, value:Jlong) JNIArgsHelper.argsSetJlong(this, pos, value);
+	public inline function setJfloat(pos:Int, value:Jfloat) JNIArgsHelper.argsSetJfloat(this, pos, value);
+	public inline function setJdouble(pos:Int, value:Jdouble) JNIArgsHelper.argsSetJdouble(this, pos, value);
+	public inline function setJobject(pos:Int, value:Jobject) JNIArgsHelper.argsSetJobject(this, pos, value);
+}
 
 // field pointers
 abstract JmethodID(hl.Abstract<"_jmethodID">) {}
@@ -48,18 +59,20 @@ typedef BytesOf<T> = hl.Bytes;
 	var JNIWeakGlobalRefType = 3;
 }
 
+private typedef JvaluePointer = hl.Abstract<"jvalue">;
+
 @:hlNative("hljni")
-extern class JNIArgsHelper {
-	static function argsAlloc(size:Int):JNIArgs;
-	static function argsSetJboolean(args:JNIArgs, pos:Int, value:Jboolean):Void;
-	static function argsSetJbyte(args:JNIArgs, pos:Int, value:Jbyte):Void;
-	static function argsSetJchar(args:JNIArgs, pos:Int, value:Jchar):Void;
-	static function argsSetJshort(args:JNIArgs, pos:Int, value:Jshort):Void;
-	static function argsSetJint(args:JNIArgs, pos:Int, value:Jint):Void;
-	static function argsSetJlong(args:JNIArgs, pos:Int, value:Jlong):Void;
-	static function argsSetJfloat(args:JNIArgs, pos:Int, value:Jfloat):Void;
-	static function argsSetJdouble(args:JNIArgs, pos:Int, value:Jdouble):Void;
-	static function argsSetJobject(args:JNIArgs, pos:Int, value:Jobject):Void;
+private extern class JNIArgsHelper {
+	static function argsAlloc(size:Int):JvaluePointer;
+	static function argsSetJboolean(args:JvaluePointer, pos:Int, value:Jboolean):Void;
+	static function argsSetJbyte(args:JvaluePointer, pos:Int, value:Jbyte):Void;
+	static function argsSetJchar(args:JvaluePointer, pos:Int, value:Jchar):Void;
+	static function argsSetJshort(args:JvaluePointer, pos:Int, value:Jshort):Void;
+	static function argsSetJint(args:JvaluePointer, pos:Int, value:Jint):Void;
+	static function argsSetJlong(args:JvaluePointer, pos:Int, value:Jlong):Void;
+	static function argsSetJfloat(args:JvaluePointer, pos:Int, value:Jfloat):Void;
+	static function argsSetJdouble(args:JvaluePointer, pos:Int, value:Jdouble):Void;
+	static function argsSetJobject(args:JvaluePointer, pos:Int, value:Jobject):Void;
 }
 
 /** see https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/functions.html **/
