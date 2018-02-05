@@ -2,19 +2,14 @@
 #include <hl.h>
 #include <jni.h>
 
-static JNIEnv* env;
-
-HL_PRIM void HL_NAME(set_env)(JNIEnv* p_env) {
-	env = p_env;
-}
-
+#define _JNIENV _ABSTRACT(JNIEnv)
 #define _JNIARGS _ABSTRACT(jvalue)
 #define _JOBJECT _ABSTRACT(_jobject)
 
-HL_PRIM jvalue* HL_NAME(args_alloc)(int count) {
+HL_PRIM jvalue* HL_NAME(args__new)(int count) {
 	return hl_gc_alloc_noptr(sizeof(jvalue) * count);
 }
-DEFINE_PRIM(_JNIARGS, args_alloc, _I32);
+DEFINE_PRIM(_JNIARGS, args__new, _I32);
 
 #define DEFINE_ARGS_SET(type, letter, prim) \
 	HL_PRIM void HL_NAME(args_set_##type)(jvalue* args, int pos, type value) { \

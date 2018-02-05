@@ -12,8 +12,7 @@ As with any HashLink bindings, this library consists of two parts:
 
 If you compile your Haxe/HL project to C, add the `native/hljni.c` file to your C compilation.
 
-Before hljni functions can be used, the library must be initialized by setting
-up global `JNIEnv*` with `hljni_set_env` function, found in the `native/hljni.h`
-header. So do that in your application's entry point.
+To use JNI you need an instance of hljni.JNIEnv, which is just a `JNIEnv*` pointer that you must obtain somehow in
+your specific application code (TODO: example)
 
 > TODO: bytecode/hdll use case, code examples, add helpers, etc.

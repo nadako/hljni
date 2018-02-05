@@ -7,7 +7,7 @@ using haxe.macro.Tools;
 class Gen {
 	static function getPrelude() return sys.io.File.getContent(Context.resolvePath("hljni_prelude.c"));
 
-	static function getJNIClass() return switch Context.getType("hljni.JNI") { case TInst(c, _): c.get(); case _: throw "assert"; };
+	static function getJNIClass() return switch Context.getType("hljni.JNI.JNIEnv") { case TAbstract(a, _): a.get().impl.get(); case _: throw "assert"; };
 
 	static function getNativeName(name) return ~/([A-Z]+)/g.replace(name, "_$1").toLowerCase();
 
@@ -30,7 +30,7 @@ class Gen {
 		case "hljni.ConstJcharStar": {c: "const jchar*", prim: "_BYTES"};
 		case "hljni.JmethodID": {c: "jmethodID", prim: "_ABSTRACT(_jmethodID)"};
 		case "hljni.JfieldID": {c: "jfieldID", prim: "_ABSTRACT(_jfieldID)"};
-		case "hljni.JNIArgs": {c: "const jvalue*", prim: "_JNIARGS"};
+		case "hljni.JNIArgs": {c: "jvalue*", prim: "_JNIARGS"};
 		case "hljni.JobjectRefType": {c: "jobjectRefType", prim: "_I32"};
 		case "hljni.Jstring": {c: "jstring", prim: "_JOBJECT"};
 		case "hl.Ref<hljni.Jboolean>": {c: "jboolean*", prim: "_REF(_BOOL)"};
@@ -78,8 +78,12 @@ class Gen {
 			var nativeRet = ret.c;
 			var primRet = ret.prim;
 
-			var nativeArgs = [];
-			var primArgs = [];
+			var firstArg = args.shift();
+			if (firstArg.t.toString() != 'hl.Abstract<"JNIEnv">')
+				throw "assert";
+
+			var nativeArgs = ["JNIEnv* env"];
+			var primArgs = ["_JNIENV"];
 			var callArgs = ["env"];
 
 			for (arg in args) {
@@ -93,7 +97,7 @@ class Gen {
 				'HL_PRIM $nativeRet HL_NAME($nativeName)(${nativeArgs.join(", ")}) {',
 				'\t${if (nativeRet != "void") "return " else ""}(*env)->${method.name}(${callArgs.join(", ")});',
 				'}',
-				'DEFINE_PRIM($primRet, $nativeName, ${if (primArgs.length == 0) "_NO_ARG" else primArgs.join(" ")});',
+				'DEFINE_PRIM($primRet, $nativeName, ${primArgs.join(" ")});',
 			].join("\n"));
 		}
 

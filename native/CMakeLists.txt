@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 
 project(hljni C)
 
-include(FindJNI)
+find_package(JNI)
 
 set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/..)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
