@@ -35,7 +35,7 @@ DEFINE_PRIM(_JNATIVEMETHODS, native_methods__new, _I32);
 
 HL_PRIM void HL_NAME(native_methods_set)(JNINativeMethod* methods, int pos, char* name, char* signature, vclosure* fn) {
 	if (fn->hasValue) {
-		hl_error("Only static methods are supported for JNINativeMethods.set");
+		hl_error("Error registering native function: only static methods or non-capturing anonymous functions are supported for JNINativeMethods.set");
 		return;
 	}
 	JNINativeMethod* method = &methods[pos];
