@@ -31,6 +31,7 @@ class Gen {
 		case "hljni.JmethodID": {c: "jmethodID", prim: "_ABSTRACT(_jmethodID)"};
 		case "hljni.JfieldID": {c: "jfieldID", prim: "_ABSTRACT(_jfieldID)"};
 		case "hljni.JNIArgs": {c: "jvalue*", prim: "_JNIARGS"};
+		case "hljni.JNINativeMethods": {c: "JNINativeMethod*", prim: "_JNATIVEMETHODS"};
 		case "hljni.JobjectRefType": {c: "jobjectRefType", prim: "_I32"};
 		case "hljni.Jstring": {c: "jstring", prim: "_JOBJECT"};
 		case "hl.Ref<hljni.Jboolean>": {c: "jboolean*", prim: "_REF(_BOOL)"};

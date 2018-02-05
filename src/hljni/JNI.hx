@@ -60,6 +60,13 @@ extern abstract JNIArgs(hl.Abstract<"jvalue">) {
 	function setJobject(pos:Int, value:Jobject):Void;
 }
 
+// native methods array
+@:hlNative("hljni", "native_methods_")
+extern abstract JNINativeMethods(hl.Abstract<"JNINativeMethod">) {
+	function new(count:Int);
+	function set(pos:Int, name:hl.Bytes, signature:hl.Bytes, fn:haxe.Constraints.Function):Void;
+}
+
 @:hlNative("hljni")
 extern abstract JNIEnv(hl.Abstract<"JNIEnv">) {
 	function GetVersion():Jint;
@@ -217,4 +224,6 @@ extern abstract JNIEnv(hl.Abstract<"JNIEnv">) {
 	function SetDoubleArrayRegion(array:JdoubleArray, start:Jsize, len:Jsize, buf:BytesOf<Jdouble>):Void;
 	function GetPrimitiveArrayCritical(array:Jarray, isCopy:hl.Ref<Jboolean>):hl.Bytes;
 	function ReleasePrimitiveArrayCritical(array:Jarray, carray:hl.Bytes, mode:Jint):Void;
+	function RegisterNatives(clazz:Jclass, methods:JNINativeMethods, nMethods:Jint):Jint;
+	function UnregisterNatives(clazz:Jclass):Jint;
 }
