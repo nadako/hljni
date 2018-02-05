@@ -6,30 +6,8 @@ language: haxe
 os:
   - linux
 
-addons:
-  apt:
-    packages:
-    - libpng-dev
-    - libsdl2-dev
-    - libvorbis-dev
-    - libalut-dev
-    - libjpeg-turbo8-dev
-    - libuv-dev
-    - libopenal-dev
-
 haxe:
   - development
 
-install:
-  - git clone https://github.com/HaxeFoundation/hashlink/
-  - cd hashlink
-  - cmake -G "Unix Makefiles" .
-  - cmake --build .
-  - cd ..
-
-
 script:
   - haxe gen.hxml
-  - cd native
-  - cmake -G "Unix Makefiles" .
-  - cmake --build .
