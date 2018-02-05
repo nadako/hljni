@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 
+project(hljni C)
+
 include(FindJNI)
 
 set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/..)
@@ -16,16 +18,22 @@ foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${OUTPUT_DIR})
 endforeach(OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES)
 
-set(HASHLINK_DIR D:/Code/hashlink)
-link_directories(${HASHLINK_DIR}/bin)
+set(HASHLINK_DIR "" CACHE FILEPATH "Path to HashLink source code")
+if(NOT HASHLINK_DIR)
+    message(FATAL_ERROR "HASHLINK_DIR must be provided with the path to HashLink source code")
+endif()
+message(STATUS "HASHLINK_DIR is set to ${HASHLINK_DIR}")
 
-include_directories(
-    ${HASHLINK_DIR}/src
-    ${JNI_INCLUDE_DIRS}
-)
+link_directories(${HASHLINK_DIR}/bin)
 
 add_library(hljni.hdll MODULE
     hljni.c
+)
+
+target_include_directories(hljni.hdll
+    PRIVATE
+    ${HASHLINK_DIR}/src
+    ${JNI_INCLUDE_DIRS}
 )
 
 target_link_libraries(hljni.hdll
