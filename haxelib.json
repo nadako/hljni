@@ -1,0 +1,11 @@
+{
+	"name": "hljni",
+	"description": "Java Native Interface bindings for HashLink",
+	"url": "https://github.com/nadako/hljni",
+	"license": "MIT",
+	"tags": ["hashlink", "java", "jni"],
+	"version": "0.1.0",
+	"releasenote": "Initial release",
+	"contributors": ["nadako"],
+	"classPath": "src"
+}
